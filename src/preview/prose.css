@@ -1,0 +1,66 @@
+/* Stand-in for a future Prose component: long-form typography built only from theme variables. */
+@layer components {
+  .prose {
+    max-width: 68ch;
+    color: var(--foreground);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  .prose > * + * { margin-top: 1.25em; }
+  .prose blockquote > * + *, .prose li > p + p, .prose details > * + * { margin-top: 0.75em; }
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  .prose h1 { font-size: 2.25em; letter-spacing: -0.025em; }
+  .prose h2 { font-size: 1.5em; margin-top: 2em; }
+  .prose h3 { font-size: 1.2em; margin-top: 1.8em; }
+  .prose h4 { font-size: 1em; margin-top: 1.6em; }
+  .prose h2 + *, .prose h3 + *, .prose h4 + * { margin-top: 0.6em; }
+  .prose p { text-wrap: pretty; }
+  .prose .lead { font-size: 1.2em; line-height: 1.55; color: var(--muted-foreground); }
+  .prose a { color: var(--foreground); text-decoration: underline; text-decoration-color: var(--muted-foreground); text-underline-offset: 0.2em; }
+  .prose a:hover { text-decoration-color: currentColor; }
+  .prose strong { font-weight: 600; }
+  .prose small { font-size: 0.85em; color: var(--muted-foreground); }
+  .prose mark { background: color-mix(in oklab, var(--warning) 28%, transparent); color: inherit; padding: 0.05em 0.2em; border-radius: 0.2em; }
+  .prose abbr[title] { text-decoration: underline dotted; cursor: help; }
+  .prose del { color: var(--muted-foreground); }
+  .prose ins { text-decoration: none; background: color-mix(in oklab, var(--success) 18%, transparent); }
+  .prose ul, .prose ol { padding-left: 1.5em; }
+  .prose ul { list-style: disc; }
+  .prose ol { list-style: decimal; }
+  .prose ul ul { list-style: circle; }
+  .prose ol ol { list-style: lower-alpha; }
+  .prose li + li, .prose li > ul, .prose li > ol { margin-top: 0.4em; }
+  .prose li::marker { color: var(--muted-foreground); }
+  .prose ul.task-list { list-style: none; padding-left: 0; }
+  .prose ul.task-list li { display: flex; gap: 0.6em; align-items: baseline; }
+  .prose blockquote { border-left: 2px solid var(--border); padding-left: 1.25em; color: var(--muted-foreground); font-style: italic; }
+  .prose blockquote footer { margin-top: 0.6em; font-size: 0.875em; font-style: normal; }
+  .prose hr { border: 0; border-top: 1px solid var(--border); margin-block: 2.5em; }
+  .prose code, .prose kbd, .prose samp { font-family: var(--font-mono); font-size: 0.875em; }
+  .prose :not(pre) > code { background: var(--muted); padding: 0.15em 0.35em; border-radius: var(--radius-sm); }
+  .prose pre { background: var(--muted); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1em 1.15em; overflow-x: auto; line-height: 1.55; }
+  .prose kbd { border: 1px solid var(--border); border-bottom-width: 2px; border-radius: var(--radius-sm); padding: 0.05em 0.4em; }
+  .prose figure > * { width: 100%; }
+  .prose figcaption { margin-top: 0.75em; font-size: 0.875em; color: var(--muted-foreground); text-align: center; }
+  .prose table { width: 100%; font-size: 0.9em; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .prose th { text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); padding: 0.6em 0.75em; }
+  .prose td { border-bottom: 1px solid var(--border); padding: 0.6em 0.75em; }
+  .prose th:first-child, .prose td:first-child { padding-left: 0; }
+  .prose caption { caption-side: bottom; margin-top: 0.75em; font-size: 0.875em; color: var(--muted-foreground); }
+  .prose dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.5em 1.5em; }
+  .prose dt { font-weight: 600; }
+  .prose dd { color: var(--muted-foreground); }
+  .prose details { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 0.75em 1em; }
+  .prose summary { cursor: pointer; font-weight: 500; }
+  .prose details[open] > summary { margin-bottom: 0.6em; }
+  .prose sup { font-size: 0.7em; line-height: 0; }
+  .prose .footnotes { font-size: 0.875em; color: var(--muted-foreground); }
+  .prose-serif { font-family: var(--font-serif); }
+  .prose-serif h1, .prose-serif h2, .prose-serif h3, .prose-serif h4 { font-family: var(--font-serif); }
+}

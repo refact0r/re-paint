@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/components/ui/*": ["./src/preview/coss-compat/*", "./src/preview/coss-ui/*", "./src/preview/stock-ui/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/preview/app.tsx", "src/preview/screens", "src/stock.d.ts"]
+}

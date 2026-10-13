@@ -1,0 +1,131 @@
+/* coss ui (neutral) token values, for comparing against re-paint in the preview. */
+:root[data-tokens="coss"] {
+    --background: var(--color-white);
+    --foreground: var(--color-neutral-800);
+    --card: var(--color-white);
+    --card-foreground: var(--color-neutral-800);
+    --popover: var(--color-white);
+    --popover-foreground: var(--color-neutral-800);
+    --primary: var(--color-neutral-800);
+    --primary-foreground: var(--color-neutral-50);
+    --secondary: --alpha(var(--color-black) / 4%);
+    --secondary-foreground: var(--color-neutral-800);
+    --muted: --alpha(var(--color-black) / 4%);
+    --muted-foreground: color-mix(in srgb, var(--color-neutral-500) 90%, var(--color-black));
+    --accent: --alpha(var(--color-black) / 4%);
+    --accent-foreground: var(--color-neutral-800);
+    --destructive: var(--color-red-500);
+    --destructive-foreground: var(--color-red-700);
+    --border: --alpha(var(--color-black) / 8%);
+    --input: --alpha(var(--color-black) / 10%);
+    --ring: var(--color-neutral-400);
+    --chart-1: var(--color-orange-600);
+    --chart-2: var(--color-teal-600);
+    --chart-3: var(--color-cyan-900);
+    --chart-4: var(--color-amber-400);
+    --chart-5: var(--color-amber-500);
+    --success: var(--color-emerald-500);
+    --success-foreground: var(--color-emerald-700);
+    --warning: var(--color-amber-500);
+    --warning-foreground: var(--color-amber-700);
+    --info: var(--color-blue-500);
+    --info-foreground: var(--color-blue-700);
+    --sidebar: var(--color-neutral-50);
+    --sidebar-foreground: color-mix(in srgb, var(--color-neutral-800) 64%, var(--sidebar));
+    --sidebar-primary: var(--color-neutral-800);
+    --sidebar-primary-foreground: var(--color-neutral-50);
+    --sidebar-accent: --alpha(var(--color-black) / 4%);
+    --sidebar-accent-foreground: var(--color-neutral-800);
+    --sidebar-border: --alpha(var(--color-black) / 6%);
+    --sidebar-ring: var(--color-neutral-400);
+
+    --radius: 0.625rem;
+    --radius-round: calc(infinity * 1px);
+
+    --typeface-sans: 'Inter Variable', sans-serif;
+    --typeface-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --typeface-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --typeface-heading: var(--typeface-sans);
+
+    --elevation-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --elevation-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --elevation-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --elevation-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --elevation-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.dark[data-tokens="coss"] {
+    --background: color-mix(in srgb, var(--color-neutral-950) 95%, var(--color-white));
+    --foreground: var(--color-neutral-100);
+    --card: color-mix(in srgb, var(--background) 98%, var(--color-white));
+    --card-foreground: var(--color-neutral-100);
+    --popover: color-mix(in srgb, var(--background) 98%, var(--color-white));
+    --popover-foreground: var(--color-neutral-100);
+    --primary: var(--color-neutral-100);
+    --primary-foreground: var(--color-neutral-800);
+    --secondary: --alpha(var(--color-white) / 4%);
+    --secondary-foreground: var(--color-neutral-100);
+    --muted: --alpha(var(--color-white) / 4%);
+    --muted-foreground: color-mix(in srgb, var(--color-neutral-500) 90%, var(--color-white));
+    --accent: --alpha(var(--color-white) / 4%);
+    --accent-foreground: var(--color-neutral-100);
+    --destructive: color-mix(in srgb, var(--color-red-500) 90%, var(--color-white));
+    --destructive-foreground: var(--color-red-400);
+    --border: --alpha(var(--color-white) / 6%);
+    --input: --alpha(var(--color-white) / 8%);
+    --ring: var(--color-neutral-500);
+    --chart-1: var(--color-blue-700);
+    --chart-2: var(--color-emerald-500);
+    --chart-3: var(--color-amber-500);
+    --chart-4: var(--color-purple-500);
+    --chart-5: var(--color-rose-500);
+    --success-foreground: var(--color-emerald-400);
+    --warning-foreground: var(--color-amber-400);
+    --info-foreground: var(--color-blue-400);
+    --sidebar: color-mix(in srgb, var(--color-neutral-950) 97%, var(--color-white));
+    --sidebar-foreground: color-mix(in srgb, var(--color-neutral-100) 64%, var(--sidebar));
+    --sidebar-primary: var(--color-neutral-100);
+    --sidebar-primary-foreground: var(--color-neutral-800);
+    --sidebar-accent: --alpha(var(--color-white) / 4%);
+    --sidebar-accent-foreground: var(--color-neutral-100);
+    --sidebar-border: --alpha(var(--color-white) / 5%);
+}
+
+/* Theme names only the coss components use. */
+@theme inline {
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-success-foreground: var(--success-foreground);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-info-foreground: var(--info-foreground);
+    --animate-skeleton: skeleton 2s -1s infinite linear;
+    --animate-toast-success-odd: toast-success-odd 0.32s cubic-bezier(0.5, 1, 0.89, 1);
+    --animate-toast-success-even: toast-success-even 0.32s cubic-bezier(0.5, 1, 0.89, 1);
+    --animate-toast-error-odd: toast-error-odd 0.28s cubic-bezier(0.5, 1, 0.89, 1);
+    --animate-toast-error-even: toast-error-even 0.28s cubic-bezier(0.5, 1, 0.89, 1);
+
+    @keyframes skeleton {
+        to { background-position: -200% 0; }
+    }
+    @keyframes toast-success-odd {
+        0% { scale: 1; }
+        30% { scale: 1.025; }
+        60% { scale: 0.99; }
+        100% { scale: 1; }
+    }
+    @keyframes toast-success-even {
+        0% { scale: 1; }
+        30% { scale: 1.025; }
+        60% { scale: 0.99; }
+        100% { scale: 1; }
+    }
+    @keyframes toast-error-odd {
+        0%, 100% { translate: 0 0; }
+        25%, 75% { translate: -3px 0; }
+        50% { translate: 3px 0; }
+    }
+    @keyframes toast-error-even {
+        0%, 100% { translate: 0 0; }
+        25%, 75% { translate: -3px 0; }
+        50% { translate: 3px 0; }
+    }
+}
