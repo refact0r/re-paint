@@ -159,6 +159,34 @@ export function Foundations() {
         </Row>
       </Section>
 
+      <Section title="Print" description="The few devices borrowed from printed matter, and what each one means.">
+        <Row label="Patterns: solid is done, dots are a tint, hatching is still to come">
+          {[
+            { cls: "border border-primary-border bg-primary", name: "solid" },
+            { cls: "border bg-halftone", name: "dots" },
+            { cls: "border bg-hatch", name: "hatch" },
+          ].map((pattern) => (
+            <div key={pattern.name} className="flex flex-col items-center gap-2">
+              <div className={`size-16 ${pattern.cls}`} />
+              <span className="font-mono text-xs text-muted-foreground">{pattern.name}</span>
+            </div>
+          ))}
+        </Row>
+        <Row label="Details: dot shadow on floating surfaces, dotted rules between items">
+          <div className="h-16 w-40 bg-popover ring-1 ring-border dot-shadow" />
+          <div className="flex w-40 flex-col gap-2 border bg-popover p-1">
+            <div className="px-1.5 text-sm">Rename</div>
+            <div className="-mx-1 h-px bg-dotted" />
+            <div className="px-1.5 text-sm">Delete</div>
+          </div>
+        </Row>
+        <Row label="Highlighter">
+          <p className="text-sm">
+            Selected text and <mark>marked passages</mark> take the yellow ink.
+          </p>
+        </Row>
+      </Section>
+
       <Section title="Buttons" description="Each variant at each size, then the states.">
         {buttonVariants.map((variant) => (
           <Row key={variant} label={variant}>

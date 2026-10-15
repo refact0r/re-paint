@@ -8,6 +8,7 @@
 @import "./tokens.css";
 @import "./preview/stock.css";
 @import "./preview/coss.css";
+@import "./preview/kits.css";
 @import "./preview/prose.css";
 
 @custom-variant dark (&:is(.dark *));
@@ -30,6 +31,8 @@
     --color-spot-3-tint: var(--spot-3-tint);
     --color-spot-4: var(--spot-4);
     --color-spot-4-tint: var(--spot-4-tint);
+    --color-highlight: var(--highlight);
+    --color-highlight-foreground: var(--highlight-foreground);
     --color-success: var(--success);
     --color-warning: var(--warning);
     --color-info: var(--info);
@@ -85,6 +88,28 @@
   html {
     @apply font-sans;
     }
+  html {
+    caret-color: var(--caret);
+    scrollbar-color: var(--scrollbar);
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    pointer-events: none;
+    background-image: var(--grain);
+    mix-blend-mode: overlay;
+    opacity: var(--grain-opacity);
+  }
+  ::selection {
+    background-color: var(--highlight);
+    color: var(--highlight-foreground);
+  }
+  mark {
+    background-color: var(--highlight);
+    color: var(--highlight-foreground);
+  }
 }
 
 /* Small uppercase text for labels, column heads and badges. */
@@ -100,4 +125,49 @@
 @utility bg-halftone {
   background-image: var(--halftone);
   background-size: 3px 3px;
+}
+
+/* Hatching for what is pending: remaining progress, content still loading. */
+@utility bg-hatch {
+  background-image: var(--hatch);
+}
+
+/* A dot shadow offset below and right of a floating surface. Drawn as a border image pushed outside the box,
+   so overflow on the surface can't clip it, it follows the surface's own open and close animation, and it starts
+   past the 1px outline ring. It replaces a real border, so use it on surfaces outlined with a ring. */
+@utility dot-shadow {
+  border-image-source: var(--dot-shadow);
+  border-image-slice: 4;
+  border-image-width: 4px;
+  border-image-outset: 0 5px 5px 0;
+  border-image-repeat: repeat;
+}
+
+/* Dotted rules between items inside a surface. bg-dotted(-y) draws a separator element; dotted-b turns an
+   element's bottom border dotted; divide-dotted does the same for divide-y. Edges of surfaces stay solid.
+   The dotted border is a background laid over the hidden border, not a border image: Chrome blurs gradient
+   border images on high-density screens until the dots disappear. */
+@utility bg-dotted {
+  background-image: var(--dots-x);
+}
+@utility bg-dotted-y {
+  background-image: var(--dots-y);
+}
+@utility dotted-b {
+  border-bottom-color: var(--dotted-border);
+  background-image: var(--dots-x);
+  background-origin: border-box;
+  background-position: bottom;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+}
+@utility divide-dotted {
+  & > :not(:last-child) {
+    border-bottom-color: var(--dotted-border);
+    background-image: var(--dots-x);
+    background-origin: border-box;
+    background-position: bottom;
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+  }
 }

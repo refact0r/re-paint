@@ -111,8 +111,8 @@ export function Overview() {
         {stats.map((stat) => (
           <Card key={stat.label}>
             <CardHeader>
-              <CardDescription>{stat.label}</CardDescription>
-              <CardTitle className="text-3xl font-semibold tabular-nums">{stat.value}</CardTitle>
+              <CardDescription className="label-caps">{stat.label}</CardDescription>
+              <CardTitle className="text-4xl font-semibold tracking-tight tabular-nums">{stat.value}</CardTitle>
               <CardAction>
                 <Badge variant="outline" className={stat.up === true ? "text-success" : stat.up === false ? "text-destructive" : ""}>
                   {stat.up === true && <ArrowUpRightIcon />}
@@ -221,7 +221,7 @@ export function Overview() {
             <CardDescription>Next three weeks</CardDescription>
           </CardHeader>
           <CardContent>
-            <ul className="flex flex-col divide-y">
+            <ul className="flex flex-col divide-y divide-dotted">
               {deadlines.map((item) => (
                 <li key={item.what} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
                   <CalendarClockIcon className="size-4 text-muted-foreground" />

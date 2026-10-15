@@ -176,7 +176,7 @@ export function Manuscript() {
               </SheetHeader>
               <ol className="flex flex-col gap-1 px-4">
                 {versions.map((version, index) => (
-                  <li key={version.label} className={cn("rounded-lg p-3 text-sm", index === 0 && "bg-accent text-accent-foreground")}>
+                  <li key={version.label} className={cn("rounded-lg p-3 text-sm", index === 0 && "bg-secondary text-secondary-foreground")}>
                     <div className="flex items-baseline justify-between">
                       <span className="font-medium">{version.label}</span>
                       <time className="text-xs text-muted-foreground">{version.when}</time>

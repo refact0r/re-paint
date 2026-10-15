@@ -174,7 +174,7 @@ export function Inbox() {
                   onClick={() => setSelectedId(item.id)}
                   className={cn(
                     "flex w-full flex-col gap-1.5 rounded-lg px-3 py-3 text-left text-sm outline-none hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring",
-                    item.id === selectedId && "bg-accent hover:bg-accent"
+                    item.id === selectedId && "bg-secondary hover:bg-secondary"
                   )}
                 >
                   <div className="flex items-center gap-2">

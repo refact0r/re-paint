@@ -255,7 +255,7 @@ function Notifications() {
       <FieldSet>
         <FieldLegend>Email notifications</FieldLegend>
         <FieldDescription>Choose what reaches your inbox. In-app notifications are always on.</FieldDescription>
-        <FieldGroup className="gap-0 divide-y rounded-lg border">
+        <FieldGroup className="gap-0 divide-y divide-dotted rounded-lg border">
           {notificationRows.map((row, index) => (
             <Field key={row.id} orientation="horizontal" className="p-4">
               <FieldContent>
@@ -481,7 +481,7 @@ function Danger() {
         <AlertTitle>These actions affect everyone in Halfmoon Press</AlertTitle>
         <AlertDescription>Only workspace owners can see this tab.</AlertDescription>
       </Alert>
-      <div className="divide-y rounded-lg border">
+      <div className="divide-y divide-dotted rounded-lg border">
         <div className="flex items-center justify-between gap-6 p-4">
           <div className="text-sm">
             <p className="font-medium">Transfer ownership</p>

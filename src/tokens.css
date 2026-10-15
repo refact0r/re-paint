@@ -4,117 +4,157 @@
  * a few spot colors, flat surfaces separated by outlines.
  */
 @font-face {
-    font-family: 'Aspekta';
-    font-weight: 400;
-    font-display: swap;
-    src: url('./fonts/Aspekta-400.otf') format('opentype');
+	font-family: 'Aspekta';
+	font-weight: 400;
+	font-display: swap;
+	src: url('./fonts/Aspekta-400.otf') format('opentype');
 }
 @font-face {
-    font-family: 'Aspekta';
-    font-weight: 500;
-    font-display: swap;
-    src: url('./fonts/Aspekta-500.otf') format('opentype');
+	font-family: 'Aspekta';
+	font-weight: 500;
+	font-display: swap;
+	src: url('./fonts/Aspekta-500.otf') format('opentype');
 }
 @font-face {
-    font-family: 'Aspekta';
-    font-weight: 600;
-    font-display: swap;
-    src: url('./fonts/Aspekta-600.otf') format('opentype');
+	font-family: 'Aspekta';
+	font-weight: 600;
+	font-display: swap;
+	src: url('./fonts/Aspekta-600.otf') format('opentype');
 }
 @font-face {
-    font-family: 'Aspekta';
-    font-weight: 700;
-    font-display: swap;
-    src: url('./fonts/Aspekta-700.otf') format('opentype');
+	font-family: 'Aspekta';
+	font-weight: 700;
+	font-display: swap;
+	src: url('./fonts/Aspekta-700.otf') format('opentype');
 }
 
 :root {
-    --paper: oklch(0.945 0.024 115);
-    --ink: oklch(0.24 0.018 150);
+	--paper: oklch(0.945 0.024 115);
+	--ink: oklch(0.24 0.018 150);
 
-    /* Spot inks: the only hues besides paper and ink. Everything colored below points at these.
+	/* Spot inks: the only hues besides paper and ink. Everything colored below points at these.
        Each tint is its ink mixed into the paper, so it stays the same color in both modes. */
-    --spot-1: oklch(0.74 0.1 210);
-    --spot-1-tint: color-mix(in oklab, var(--spot-1) 45%, var(--paper));
-    --spot-2: oklch(0.7 0.17 5);
-    --spot-2-tint: color-mix(in oklab, var(--spot-2) 45%, var(--paper));
-    --spot-3: oklch(0.85 0.14 92);
-    --spot-3-tint: color-mix(in oklab, var(--spot-3) 45%, var(--paper));
-    /* The paper's own hue at full strength. */
-    --spot-4: oklch(0.78 0.15 118);
-    --spot-4-tint: color-mix(in oklab, var(--spot-4) 45%, var(--paper));
+	--spot-1: oklch(0.74 0.1 210);
+	--spot-1-tint: color-mix(in oklab, var(--spot-1) 45%, var(--paper));
+	--spot-2: oklch(0.7 0.17 5);
+	--spot-2-tint: color-mix(in oklab, var(--spot-2) 45%, var(--paper));
+	--spot-3: oklch(0.85 0.14 92);
+	--spot-3-tint: color-mix(in oklab, var(--spot-3) 45%, var(--paper));
+	--spot-4: oklch(0.78 0.15 118);
+	--spot-4-tint: color-mix(in oklab, var(--spot-4) 45%, var(--paper));
 
-    --background: var(--paper);
-    --foreground: var(--ink);
-    --card: oklch(0.962 0.016 115);
-    --card-foreground: var(--ink);
-    --popover: oklch(0.962 0.016 115);
-    --popover-foreground: var(--ink);
-    --primary: var(--spot-1);
-    --primary-foreground: var(--ink);
-    /* Outline of a filled primary control. */
-    --primary-border: var(--ink);
-    --secondary: oklch(0.895 0.032 115);
-    --secondary-foreground: var(--ink);
-    --muted: oklch(0.912 0.028 115);
-    --muted-foreground: oklch(0.47 0.022 150);
-    --accent: var(--spot-1-tint);
-    --accent-foreground: var(--ink);
-    --destructive: color-mix(in oklab, var(--spot-2), var(--ink) 25%);
-    /* Opaque on purpose: translucent borders darken wherever two of them overlap. */
-    --border-strength: 50%;
-    --border: color-mix(in oklab, var(--ink) var(--border-strength), var(--paper));
-    --input: var(--border);
-    --ring: color-mix(in oklab, var(--spot-1), var(--ink) 20%);
-    --success: color-mix(in oklab, var(--spot-4), var(--ink) 45%);
-    --warning: color-mix(in oklab, var(--spot-3), var(--ink) 45%);
-    --info: var(--ink);
-    --chart-1: var(--spot-1);
-    --chart-2: var(--spot-2);
-    --chart-3: var(--spot-3);
-    --chart-4: var(--ink);
-    --chart-5: var(--spot-1-tint);
-    --sidebar: var(--paper);
-    --sidebar-foreground: var(--ink);
-    --sidebar-primary: var(--primary);
-    --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: var(--accent);
-    --sidebar-accent-foreground: var(--ink);
-    --sidebar-border: var(--border);
-    --sidebar-ring: var(--ring);
+	--background: var(--paper);
+	--foreground: var(--ink);
+	--card: oklch(0.962 0.016 115);
+	--card-foreground: var(--ink);
+	--popover: oklch(0.962 0.016 115);
+	--popover-foreground: var(--ink);
+	--primary: var(--spot-1);
+	--primary-foreground: var(--ink);
+	/* Outline of a filled primary control. */
+	--primary-border: var(--ink);
+	--secondary: oklch(0.895 0.032 115);
+	--secondary-foreground: var(--ink);
+	--muted: oklch(0.912 0.028 115);
+	--muted-foreground: oklch(0.47 0.022 150);
+	--accent: var(--spot-1-tint);
+	--accent-foreground: var(--ink);
+	--destructive: color-mix(in oklab, var(--spot-2), var(--ink) 25%);
+	/* Opaque on purpose: translucent borders darken wherever two of them overlap. */
+	--border-strength: 50%;
+	--border: color-mix(
+		in oklab,
+		var(--ink) var(--border-strength),
+		var(--paper)
+	);
+	--input: var(--border);
+	--ring: color-mix(in oklab, var(--spot-1), var(--ink) 20%);
+	--success: color-mix(in oklab, var(--spot-4), var(--ink) 30%);
+	--warning: color-mix(in oklab, var(--spot-3), var(--ink) 30%);
+	--info: var(--ink);
+	--chart-1: var(--spot-1);
+	--chart-2: var(--spot-2);
+	--chart-3: var(--spot-3);
+	--chart-4: var(--ink);
+	--chart-5: var(--spot-1-tint);
+	--sidebar: var(--paper);
+	--sidebar-foreground: var(--ink);
+	--sidebar-primary: var(--primary);
+	--sidebar-primary-foreground: var(--primary-foreground);
+	--sidebar-accent: var(--secondary);
+	--sidebar-accent-foreground: var(--ink);
+	--sidebar-border: var(--border);
+	--sidebar-ring: var(--ring);
 
-    --radius: 0rem;
-    /* What `rounded-full` resolves to: circles and pills are squared off too. */
-    --radius-round: 0rem;
+	--radius: 0rem;
+	/* What `rounded-full` resolves to: circles and pills are squared off too. */
+	--radius-round: 0rem;
 
-    --halftone: radial-gradient(circle, oklch(0.24 0.018 150 / 16%) 0.6px, transparent 0.8px);
+	--halftone: radial-gradient(
+		circle,
+		oklch(0.24 0.018 150 / 16%) 0.6px,
+		transparent 0.8px
+	);
+	/* Diagonal hatching: the pattern for what is pending or still to come (dots are a tint, solid is done). */
+	--hatch: repeating-linear-gradient(
+		-45deg,
+		color-mix(in oklab, var(--ink) 30%, transparent) 0 1px,
+		transparent 1px 4px
+	);
 
-    --typeface-sans: 'Aspekta', system-ui, sans-serif;
-    --typeface-serif: var(--typeface-sans);
-    --typeface-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
-    --typeface-heading: var(--typeface-sans);
+	/* Dot shadow under floating surfaces: a halftone offset 4px below and right, not a blur.
+	   A 12px border-image source cut in 4px slices; only the right, bottom and corner slices have dots. */
+	--dot-shadow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpattern id='d' width='2' height='2' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='1' cy='1' r='0.6' fill='%2319221b' fill-opacity='0.55'/%3E%3C/pattern%3E%3Cpath d='M8 4h4v8H4V8h4z' fill='url(%23d)'/%3E%3C/svg%3E");
+	/* Dotted rules: the line between items inside a surface (menu options, list and table rows, accordion items).
+	   Edges of surfaces and regions stay solid. One dot every 3px. */
+	--dots: color-mix(in oklab, var(--border), var(--ink) 25%);
+	--dots-x: repeating-linear-gradient(to right, var(--dots) 0 1px, transparent 1px 3px);
+	--dots-y: repeating-linear-gradient(to bottom, var(--dots) 0 1px, transparent 1px 3px);
+	/* The real border under a dotted one is hidden; stock and coss turn it back on. */
+	--dotted-border: transparent;
 
-    /* No elevation for now: floating surfaces are separated by their outline alone. */
-    --elevation-xs: 0 0 #0000;
-    --elevation-sm: 0 0 #0000;
-    --elevation-md: 0 0 #0000;
-    --elevation-lg: 0 0 #0000;
-    --elevation-xl: 0 0 #0000;
+	/* Grain laid over the whole page, overlay-blended. Fine and flat on purpose: a tooth, not a photo of paper. */
+	--grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='3' intercept='-1'/%3E%3CfeFuncG type='linear' slope='3' intercept='-1'/%3E%3CfeFuncB type='linear' slope='3' intercept='-1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+	--grain-opacity: 0.3;
+
+	--caret: var(--ring);
+	--scrollbar: var(--border) transparent;
+
+	/* Highlighter: selected text and <mark>. Its text stays dark in both modes. */
+	--highlight: var(--spot-3);
+	--highlight-foreground: oklch(0.24 0.018 150);
+
+	--typeface-sans: 'Aspekta', system-ui, sans-serif;
+	--typeface-serif: var(--typeface-sans);
+	--typeface-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+	--typeface-heading: var(--typeface-sans);
+
+	/* No elevation for now: floating surfaces are separated by their outline alone. */
+	--elevation-xs: 0 0 #0000;
+	--elevation-sm: 0 0 #0000;
+	--elevation-md: 0 0 #0000;
+	--elevation-lg: 0 0 #0000;
+	--elevation-xl: 0 0 #0000;
 }
 
 .dark {
-    --paper: oklch(0.2 0.005 150);
-    --ink: oklch(0.925 0.024 128);
+	--paper: oklch(0.2 0.005 150);
+	--ink: oklch(0.925 0.024 128);
 
-
-    --border-strength: 32%;
-    --card: oklch(0.26 0.005 150);
-    --popover: oklch(0.26 0.005 150);
-    --primary-foreground: oklch(0.2 0.005 150);
-    /* Ink would be a white halo here, so use a lighter cut of the fill. */
-    --primary-border: oklch(from var(--primary) 0.84 calc(c * 0.6) h);
-    --secondary: oklch(0.3 0.005 150);
-    --muted: oklch(0.245 0.005 150);
-    --muted-foreground: oklch(0.72 0.02 128);
-    --halftone: radial-gradient(circle, oklch(0.925 0.024 128 / 14%) 0.6px, transparent 0.8px);
+	--border-strength: 32%;
+	--card: oklch(0.26 0.005 150);
+	--popover: oklch(0.26 0.005 150);
+	--primary-foreground: oklch(0.2 0.005 150);
+	/* Ink would be a white halo here, so use a lighter cut of the fill. */
+	--primary-border: oklch(from var(--primary) 0.84 calc(c * 0.6) h);
+	--secondary: oklch(0.3 0.005 150);
+	--muted: oklch(0.245 0.005 150);
+	--muted-foreground: oklch(0.72 0.02 128);
+	--halftone: radial-gradient(
+		circle,
+		oklch(0.925 0.024 128 / 14%) 0.6px,
+		transparent 0.8px
+	);
+	--dot-shadow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpattern id='d' width='2' height='2' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='1' cy='1' r='0.6' fill='%23000' fill-opacity='0.7'/%3E%3C/pattern%3E%3Cpath d='M8 4h4v8H4V8h4z' fill='url(%23d)'/%3E%3C/svg%3E");
+	--grain-opacity: 0.2;
 }

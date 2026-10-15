@@ -327,7 +327,7 @@ export function App({ kit, onKitChange }: { kit: Kit; onKitChange: (kit: Kit) =>
                       Mark all read
                     </Button>
                   </PopoverHeader>
-                  <ul className="divide-y">
+                  <ul className="divide-y divide-dotted">
                     {notifications.map((item) => (
                       <li key={item.what} className="flex gap-3 px-4 py-3 text-sm">
                         <span

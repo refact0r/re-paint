@@ -1,0 +1,11 @@
+/* Turns off re-paint's page-wide touches (grain, highlighter, caret, scrollbars, dotted rules) when the preview shows stock shadcn or coss ui. */
+:root[data-tokens] {
+    --grain-opacity: 0;
+    --highlight: Highlight;
+    --highlight-foreground: HighlightText;
+    --caret: auto;
+    --scrollbar: auto;
+    --dots-x: none;
+    --dots-y: none;
+    --dotted-border: var(--border);
+}
