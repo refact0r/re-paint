@@ -4,11 +4,13 @@ import { defineConfig, type Plugin } from "vite"
 
 const dir = (path: string) => decodeURIComponent(new URL(path, import.meta.url).pathname)
 const stockUi = dir("./src/preview/stock-ui")
+const ownUi = dir("./src/components/ui")
 
 // Where each comparison kit looks for `@/components/ui/*`, first match wins.
+// Components only re-paint has end the list, so the screens still render them.
 const kits: Record<string, string[]> = {
-  stock: [stockUi],
-  coss: [dir("./src/preview/coss-compat"), dir("./src/preview/coss-ui"), stockUi],
+  stock: [stockUi, ownUi],
+  coss: [dir("./src/preview/coss-compat"), dir("./src/preview/coss-ui"), stockUi, ownUi],
 }
 const mark = /\?(stock|coss)$/
 

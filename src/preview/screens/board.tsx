@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { CalendarIcon, MessageSquareIcon, MoreHorizontalIcon, PaperclipIcon, PlusIcon } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { CalendarIcon, MessageSquareIcon, MoreHorizontalIcon, PaperclipIcon, PlusIcon, SparklesIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -20,7 +20,17 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Kbd } from "@/components/ui/kbd"
 import { Progress } from "@/components/ui/progress"
+import {
+  PromptInput,
+  PromptInputAddon,
+  PromptInputInput,
+  PromptInputSuggestion,
+  PromptInputSuggestions,
+} from "@/components/ui/prompt-input"
+import { Spinner } from "@/components/ui/spinner"
+import { toast } from "@/components/ui/toast"
 
 import { people, type PersonId } from "../page"
 
@@ -53,13 +63,41 @@ const columns: { name: string; cards: Card[] }[] = [
   { name: "Done", cards: [] },
 ]
 
+const prompts = ["What is overdue?", "Move Glasshouse covers to proofing", "Who has the most open tasks?"]
+
 const checklist = ["Collect author feedback", "Revise type lockup", "Test spine at 22 mm", "Export print-ready PDF", "Send to author for sign-off"]
 
 export function Board() {
   const [open, setOpen] = useState<Card | null>(null)
+  const [prompt, setPrompt] = useState("")
+  const [running, setRunning] = useState(false)
+  const promptRef = useRef<HTMLInputElement>(null)
+
+  // "/" jumps to the prompt from anywhere on the board.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const typing = event.target instanceof Element && event.target.closest("input, textarea, [contenteditable]")
+      if (event.key === "/" && !typing) {
+        event.preventDefault()
+        promptRef.current?.focus()
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [])
+
+  const run = (text: string) => {
+    if (!text.trim() || running) return
+    setRunning(true)
+    setTimeout(() => {
+      setRunning(false)
+      setPrompt("")
+      toast.add({ title: "Preview only", description: `Nothing on the board changed for “${text.trim()}”.` })
+    }, 1200)
+  }
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="relative flex h-full flex-col">
       <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-5 lg:px-10">
         <div>
           <h1 className="font-heading text-2xl font-semibold tracking-tight">Production board</h1>
@@ -105,7 +143,7 @@ export function Board() {
         </div>
       </div>
 
-      <div className="flex min-h-0 flex-1 gap-4 overflow-x-auto px-6 pb-6 lg:px-10">
+      <div className="mb-28 flex min-h-0 flex-1 gap-4 overflow-x-auto px-6 pb-6 lg:px-10">
         {columns.map((column) => (
           <section key={column.name} className="flex w-80 shrink-0 flex-col rounded-xl border bg-muted/50 p-2">
             <header className="flex items-center gap-2 px-2 py-2">
@@ -162,6 +200,39 @@ export function Board() {
             </div>
           </section>
         ))}
+      </div>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 px-6 pb-6">
+        <PromptInput
+          className="pointer-events-auto max-w-2xl dot-shadow"
+          onSubmit={(event) => {
+            event.preventDefault()
+            run(prompt)
+          }}
+        >
+          <PromptInputAddon>{running ? <Spinner className="text-foreground" /> : <SparklesIcon />}</PromptInputAddon>
+          <PromptInputInput
+            ref={promptRef}
+            value={prompt}
+            onChange={(event) => setPrompt(event.target.value)}
+            onKeyDown={(event) => event.key === "Escape" && event.currentTarget.blur()}
+            placeholder="Ask about the board, or tell it what to move"
+            aria-label="Ask about the board"
+            disabled={running}
+          />
+          <PromptInputAddon align="inline-end">
+            <Kbd className="hidden sm:inline-flex">/</Kbd>
+          </PromptInputAddon>
+        </PromptInput>
+        {!prompt && (
+          <PromptInputSuggestions className="pointer-events-auto justify-center">
+            {prompts.map((text) => (
+              <PromptInputSuggestion key={text} onClick={() => run(text)} disabled={running}>
+                {text}
+              </PromptInputSuggestion>
+            ))}
+          </PromptInputSuggestions>
+        )}
       </div>
 
       <Drawer open={open !== null} onOpenChange={(next) => !next && setOpen(null)}>

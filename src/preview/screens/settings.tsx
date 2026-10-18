@@ -33,10 +33,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText } from "@/components/ui/input-group"
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
-import { Progress } from "@/components/ui/progress"
+import { Meter, MeterLabel, MeterValue } from "@/components/ui/meter"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
+import { StatusMark } from "@/components/ui/status-mark"
 import { Switch } from "@/components/ui/switch"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -62,10 +63,18 @@ const plans = [
   { value: "house", name: "House", price: "$99", detail: "Unlimited titles and seats" },
 ]
 const invoices = [
-  { id: "INV-0042", date: "Oct 1, 2026", amount: "$29.00", status: "Paid" },
-  { id: "INV-0041", date: "Sep 1, 2026", amount: "$29.00", status: "Paid" },
+  { id: "INV-0044", date: "Nov 1, 2026", amount: "$29.00", status: "Upcoming" },
+  { id: "INV-0043", date: "Oct 1, 2026", amount: "$29.00", status: "Paid" },
+  { id: "INV-0042", date: "Sep 3, 2026", amount: "$29.00", status: "Paid" },
+  { id: "INV-0041", date: "Sep 1, 2026", amount: "$29.00", status: "Card declined" },
   { id: "INV-0040", date: "Aug 1, 2026", amount: "$29.00", status: "Refunded" },
 ]
+const invoiceMark: Record<string, React.ComponentProps<typeof StatusMark>> = {
+  Upcoming: { status: "pending" },
+  Paid: { status: "done" },
+  "Card declined": { status: "failed" },
+  Refunded: { status: "done", ink: "var(--muted-foreground)" },
+}
 const notificationRows = [
   { id: "submissions", title: "New submissions", description: "When a manuscript arrives during a reading period." },
   { id: "comments", title: "Comments and mentions", description: "When someone replies to you or mentions you in a manuscript." },
@@ -408,16 +417,16 @@ function Billing() {
               { label: "Seats", used: 5, of: 10 },
               { label: "Storage", used: 46, of: 50, unit: " GB" },
             ].map((meter) => (
-              <div key={meter.label} className="flex flex-col gap-2 text-sm">
-                <div className="flex justify-between">
-                  <span>{meter.label}</span>
-                  <span className="text-muted-foreground tabular-nums">
-                    {meter.used} of {meter.of}
-                    {meter.unit}
-                  </span>
-                </div>
-                <Progress value={(meter.used / meter.of) * 100} aria-label={meter.label} />
-              </div>
+              <Meter
+                key={meter.label}
+                value={meter.used}
+                max={meter.of}
+                ink={meter.used / meter.of >= 0.9 ? "var(--warning)" : undefined}
+                className="gap-2"
+              >
+                <MeterLabel className="font-normal">{meter.label}</MeterLabel>
+                <MeterValue>{(_, value) => `${value} of ${meter.of}${meter.unit ?? ""}`}</MeterValue>
+              </Meter>
             ))}
           </CardContent>
         </Card>
@@ -462,7 +471,10 @@ function Billing() {
                 <TableCell className="font-mono text-xs">{invoice.id}</TableCell>
                 <TableCell>{invoice.date}</TableCell>
                 <TableCell>
-                  <Badge variant={invoice.status === "Paid" ? "secondary" : "outline"}>{invoice.status}</Badge>
+                  <span className="flex items-center gap-2">
+                    <StatusMark {...invoiceMark[invoice.status]} />
+                    {invoice.status}
+                  </span>
                 </TableCell>
                 <TableCell className="text-right tabular-nums">{invoice.amount}</TableCell>
               </TableRow>

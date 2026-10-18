@@ -143,8 +143,8 @@
   border-image-repeat: repeat;
 }
 
-/* Dotted rules between items inside a surface. bg-dotted(-y) draws a separator element; dotted-b turns an
-   element's bottom border dotted; divide-dotted does the same for divide-y. Edges of surfaces stay solid.
+/* Dotted rules between items inside a surface. bg-dotted(-y) draws a separator element; dotted-b and dotted-t
+   turn an element's bottom or top border dotted; divide-dotted does the same for divide-y. Edges of surfaces stay solid.
    The dotted border is a background laid over the hidden border, not a border image: Chrome blurs gradient
    border images on high-density screens until the dots disappear. */
 @utility bg-dotted {
@@ -158,6 +158,14 @@
   background-image: var(--dots-x);
   background-origin: border-box;
   background-position: bottom;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+}
+@utility dotted-t {
+  border-top-color: var(--dotted-border);
+  background-image: var(--dots-x);
+  background-origin: border-box;
+  background-position: top;
   background-size: 100% 1px;
   background-repeat: no-repeat;
 }

@@ -4,11 +4,15 @@ import { ArrowUpIcon, CopyIcon, PaperclipIcon, PlusIcon, RefreshCwIcon, Sparkles
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Bubble, BubbleContent } from "@/components/ui/bubble"
 import { Button } from "@/components/ui/button"
+import { Chip, ChipControl, ChipLabel, ChipRemove } from "@/components/ui/chip"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } from "@/components/ui/input-group"
 import { Marker, MarkerContent } from "@/components/ui/marker"
 import { Message, MessageAvatar, MessageContent, MessageFooter, MessageGroup, MessageHeader } from "@/components/ui/message"
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
-import { Spinner } from "@/components/ui/spinner"
+import { Slider } from "@/components/ui/slider"
+import { Source, Sources } from "@/components/ui/sources"
+import { StatusMark } from "@/components/ui/status-mark"
+import { Step, StepDescription, Steps, StepTitle } from "@/components/ui/steps"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 
@@ -19,12 +23,21 @@ const history = [
 
 const suggestions = ["Shorten it to 60 words", "Make the tone drier", "Write three subtitle options"]
 
+// What every reply in this chat keeps to. The mark says whether the latest draft does.
+const initialBrief = [
+  { id: "length", label: "Under 120 words", status: "done" as const },
+  { id: "spoilers", label: "Nothing past chapter 9", status: "pending" as const },
+  { id: "dryness", label: "Dry", weight: 0.6 },
+  { id: "comps", label: "Match the comp titles' tone", status: "failed" as const, note: "No comp titles on file" },
+]
+
 type Turn = { from: "user" | "assistant"; text: string }
 
 export function Assistant() {
   const [turns, setTurns] = useState<Turn[]>([])
   const [draft, setDraft] = useState("")
   const [thinking, setThinking] = useState(false)
+  const [brief, setBrief] = useState(initialBrief)
 
   const send = (text: string) => {
     if (!text.trim()) return
@@ -63,6 +76,38 @@ export function Assistant() {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
+        {brief.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2 border-b px-6 py-3">
+            <span className="label-caps mr-1 text-muted-foreground">Brief</span>
+            {brief.map((item) => (
+              <Chip key={item.id} variant={item.status === "failed" ? "destructive" : "default"}>
+                {item.status && <StatusMark status={item.status} />}
+                <ChipLabel>{item.label}</ChipLabel>
+                {item.weight !== undefined && (
+                  <ChipControl>
+                    <Slider
+                      value={[item.weight]}
+                      min={0}
+                      max={1}
+                      step={0.05}
+                      aria-label={`How ${item.label.toLowerCase()}`}
+                      onValueChange={(value) =>
+                        setBrief((current) =>
+                          current.map((entry) => (entry.id === item.id ? { ...entry, weight: Array.isArray(value) ? value[0] : value } : entry))
+                        )
+                      }
+                    />
+                  </ChipControl>
+                )}
+                {item.note && <span className="text-xs opacity-80">{item.note}</span>}
+                <ChipRemove
+                  aria-label={`Remove “${item.label}”`}
+                  onClick={() => setBrief((current) => current.filter((entry) => entry.id !== item.id))}
+                />
+              </Chip>
+            ))}
+          </div>
+        )}
         <div className="min-h-0 flex-1 overflow-auto">
           <MessageGroup className="mx-auto max-w-3xl gap-8 px-6 py-8">
             <Marker variant="separator">
@@ -88,11 +133,25 @@ export function Assistant() {
               </MessageAvatar>
               <MessageContent>
                 <MessageHeader>Assistant</MessageHeader>
+                <Steps className="mb-1">
+                  <Step>
+                    <StepTitle>Read the manuscript</StepTitle>
+                    <StepDescription>Chapters 1 to 9 of glasshouse-manuscript-final.docx</StepDescription>
+                  </Step>
+                  <Step>
+                    <StepTitle>Checked the reader report</StepTitle>
+                    <StepDescription>Priya flags the fire as the turn to protect</StepDescription>
+                  </Step>
+                  <Step status="failed">
+                    <StepTitle>Looked for comp titles</StepTitle>
+                    <StepDescription>None are on file for Glasshouse yet</StepDescription>
+                  </Step>
+                </Steps>
                 <div className="prose text-base">
                   <p>Here is a first pass at 96 words:</p>
                   <blockquote>
                     <p>
-                      When their mother dies, Anna and Lise inherit forty years of debt and eleven thousand seedlings. Anna wants to sell. Lise wants one more season. Neither has spoken to the other since the wedding.
+                      When their mother dies, Anna and Lise inherit forty years of debt and eleven thousand seedlings. Anna wants to sell. Lise wants one more season. Neither has spoken to the other since the wedding.<sup>1</sup>
                     </p>
                     <p>
                       Over a single summer under glass, the sisters relearn the work their mother never explained and the reasons she never did.
@@ -101,16 +160,25 @@ export function Assistant() {
                   <p>A few choices I made, in case you want them changed:</p>
                   <ul>
                     <li>
-                      <strong>No plot past the midpoint.</strong> The copy stops before August.
+                      <strong>No plot past the midpoint.</strong> The copy stops before August, where the reader report says the turn begins.<sup>2</sup>
                     </li>
                     <li>
                       <strong>Concrete numbers</strong> instead of adjectives, which matches the book's voice.
                     </li>
                     <li>
-                      The last line hints at the secret without naming it. See <code>chapter-09.docx</code> if you want to check how much is safe to say.
+                      The last line hints at the secret without naming it. See <code>chapter-09.docx</code> if you want to check how much is safe to say.<sup>3</sup>
                     </li>
                   </ul>
                 </div>
+                <Sources className="mt-2">
+                  <Source>glasshouse-manuscript-final.docx, chapter 2, “The Inventory”</Source>
+                  <Source>
+                    <span>
+                      Reader report by Priya Raman, Sep 30 · <a href="#">open</a>
+                    </span>
+                  </Source>
+                  <Source>chapter-09.docx, pages 212 to 219</Source>
+                </Sources>
                 <MessageFooter>
                   {[
                     { label: "Copy", icon: CopyIcon },
@@ -155,9 +223,14 @@ export function Assistant() {
             )}
 
             {thinking && (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground" role="status">
-                <Spinner /> Thinking…
-              </div>
+              <Steps role="status" aria-label="Working on a reply">
+                <Step>
+                  <StepTitle>Read your message</StepTitle>
+                </Step>
+                <Step status="pending" className="animate-pulse">
+                  <StepTitle>Drafting a reply…</StepTitle>
+                </Step>
+              </Steps>
             )}
           </MessageGroup>
         </div>

@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@/components/ui/*": ["./src/preview/coss-compat/*", "./src/preview/coss-ui/*", "./src/preview/stock-ui/*"],
+      "@/components/ui/*": ["./src/preview/coss-compat/*", "./src/preview/coss-ui/*", "./src/preview/stock-ui/*", "./src/components/ui/*"],
       "@/*": ["./src/*"]
     }
   },

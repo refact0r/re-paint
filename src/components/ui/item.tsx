@@ -88,11 +88,22 @@ const itemMediaVariants = cva(
         default: "bg-transparent",
         icon: "[&_svg:not([class*='size-'])]:size-4",
         image:
-          "size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover",
+          "size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full",
+      },
+      // How an image fills its tile. `contain` keeps the whole picture (a product shot, a cover)
+      // on a framed tile, inset from the edge.
+      fit: {
+        cover: "",
+        contain: "",
       },
     },
+    compoundVariants: [
+      { variant: "image", fit: "cover", className: "[&_img]:object-cover" },
+      { variant: "image", fit: "contain", className: "border bg-card p-1 [&_img]:object-contain" },
+    ],
     defaultVariants: {
       variant: "default",
+      fit: "cover",
     },
   }
 )
@@ -100,13 +111,14 @@ const itemMediaVariants = cva(
 function ItemMedia({
   className,
   variant = "default",
+  fit = "cover",
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof itemMediaVariants>) {
   return (
     <div
       data-slot="item-media"
       data-variant={variant}
-      className={cn(itemMediaVariants({ variant, className }))}
+      className={cn(itemMediaVariants({ variant, fit, className }))}
       {...props}
     />
   )
